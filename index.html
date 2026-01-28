@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Organic Farming & Animal Husbandry — Sustainable Agriculture</title>
+
+  <style>
+    /* --- Color palette (green + brown) --- */
+    :root{
+      --bg-deep: #08110b;         /* deep background (night green) */
+      --bg-soft: #f3f7f2;         /* light page background */
+      --leaf: #2e7d32;            /* primary green */
+      --leaf-dark: #1b5e20;
+      --earth: #6d4c41;           /* brown */
+      --earth-dark: #4e342e;
+      --card: rgba(255,255,255,0.96);
+      --muted: #254a2a;
+      --accent: linear-gradient(90deg,#2e7d32,#6d4c41);
+      --glass: rgba(13,28,17,0.06);
+    }
+
+    /* --- Global reset & base --- */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 400px at 10% 10%, rgba(46,125,50,0.06), transparent 12%),
+        radial-gradient(1000px 300px at 90% 90%, rgba(109,76,65,0.05), transparent 12%),
+        var(--bg-soft);
+      color: #14351f;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
+    }
+
+    /* --- Page container --- */
+    .wrap{
+      max-width:1100px;
+      margin:32px auto;
+      padding:28px;
+    }
+
+    /* --- Header / hero --- */
+    header.site-hero{
+      border-radius:16px;
+      overflow:hidden;
+      background: linear-gradient(135deg, rgba(46,125,50,0.97), rgba(109,76,65,0.95));
+      color: white;
+      padding:48px 28px;
+      box-shadow: 0 12px 40px rgba(14,28,18,0.18);
+      display:flex;
+      gap:28px;
+      align-items:center;
+    }
+
+    .hero-left{
+      flex:1;
+      min-width:220px;
+    }
+
+    .hero-left h1{
+      margin:0 0 8px;
+      font-size:2.3rem;
+      letter-spacing:0.2px;
+      line-height:1.05;
+    }
+
+    .hero-left p.lead{
+      margin:0 0 18px;
+      opacity:0.95;
+      font-size:1.05rem;
+    }
+
+    .hero-cta{
+      display:inline-flex;
+      gap:12px;
+      align-items:center;
+      margin-top:8px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:600;
+      text-decoration:none;
+      color:white;
+      background: linear-gradient(90deg,#3a8a3f,#8a5b43);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+    }
+
+    .small-note{
+      font-size:0.92rem;
+      opacity:0.92;
+      display:inline-block;
+      color:rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.06);
+      padding:8px 12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    /* --- Section cards --- */
+    section.cards{
+      margin-top:28px;
+    }
+
+    .card{
+      background: var(--card);
+      border-radius:14px;
+      padding:22px;
+      margin-bottom:20px;
+      box-shadow: 0 10px 30px rgba(12,30,16,0.06);
+      border:1px solid rgba(20,50,28,0.06);
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .card:hover{ transform: translateY(-8px); box-shadow: 0 20px 50px rgba(12,30,16,0.10); }
+
+    .card h2{ margin:0 0 10px; color:var(--leaf-dark); font-size:1.25rem; }
+    .card p{ margin:10px 0; color: #233c2a; }
+
+    /* callout */
+    .callout{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      background: var(--glass);
+      border-radius:10px;
+      padding:12px;
+      border:1px solid rgba(15,33,18,0.06);
+      margin-top:12px;
+    }
+    .callout strong{ color:var(--earth-dark); }
+
+    /* --- Media (image + text) layout --- */
+    .media{
+      display:grid;
+      gap:22px;
+      align-items:center;
+    }
+    @media(min-width:880px){
+      .media{ grid-template-columns: 1fr 1fr; }
+      .media.alt{ grid-template-columns: 1fr 1fr; } /* will be reversed by order in HTML */
+    }
+
+    .media img{
+      width:100%;
+      height:300px;
+      object-fit:cover;
+      border-radius:12px;
+      box-shadow: 0 12px 30px rgba(25,40,30,0.08);
+      border: 1px solid rgba(10,20,15,0.03);
+      transition: transform .35s ease, filter .35s ease;
+    }
+    .card:hover img{ transform: scale(1.03); filter: saturate(1.05); }
+
+    .media-content{ padding:6px 6px; }
+
+    /* benefits list */
+    .benefits{
+      display:grid;
+      gap:10px;
+      margin-top:10px;
+    }
+    .benefit{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 12px;
+      border-radius:10px;
+      background: linear-gradient(90deg, rgba(46,125,50,0.03), rgba(109,76,65,0.02));
+      border:1px solid rgba(46,125,50,0.05);
+      color:#263a2f;
+      font-weight:600;
+    }
+
+    /* final emphasize */
+    .final{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+    .final strong{ color:var(--leaf); font-size:1.05rem; }
+
+    /* footer */
+    footer.site-foot{
+      margin-top:26px;
+      padding:18px;
+      text-align:center;
+      color:#334a3b;
+      background: linear-gradient(180deg, rgba(46,125,50,0.03), rgba(109,76,65,0.02));
+      border-radius:12px;
+      font-size:0.95rem;
+      border:1px solid rgba(10,20,15,0.03);
+    }
+
+    /* small screens tweaks */
+    @media(max-width:600px){
+      .hero-left h1{ font-size:1.6rem; }
+      .hero-left p.lead{ font-size:0.98rem; }
+      .media img{ height:220px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- HERO -->
+    <header class="site-hero" role="banner" aria-label="Page hero">
+      <div class="hero-left">
+        <h1>Organic Farming & Animal Husbandry</h1>
+        <p class="lead">Sustainable practices for a greener earth, healthier people, and resilient communities.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#learn">Learn More</a>
+          <div class="small-note">Clean food • Ethical care • Lasting ecosystems</div>
+        </div>
+      </div>
+
+      <!-- simple visual block -->
+      <div class="hero-right" aria-hidden="true" style="min-width:220px;">
+        <svg width="220" height="140" viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#fff" stop-opacity="0.08"/>
+              <stop offset="1" stop-color="#fff" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="220" height="140" rx="12" fill="url(#g1)"/>
+          <g transform="translate(8,10)" fill="#ffffff" opacity="0.92">
+            <circle cx="25" cy="30" r="6" />
+            <path d="M40 110c8-20 40-18 56-4 16 14 40 16 59 2" stroke="#fff" stroke-opacity="0.9" stroke-width="2" fill="none"/>
+            <rect x="8" y="60" width="62" height="36" rx="8" fill-opacity="0.06"/>
+          </g>
+        </svg>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <section id="learn" class="cards" aria-label="Main content">
+
+      <!-- Intro card -->
+      <article class="card" aria-labelledby="sustainable-heading">
+        <h2 id="sustainable-heading">🌱 Sustainable Agriculture: The Need of the Hour</h2>
+        <p>
+          Modern food systems are straining the planet. Sustainable agriculture — led by organic farming and humane animal husbandry —
+          protects soil, conserves water, and supplies safer food while supporting local communities and biodiversity.
+        </p>
+
+        <div class="callout" role="note" aria-live="polite">
+          <strong>Why it matters:</strong>
+          <span>Cleaner environment • Healthier food • Resilient communities</span>
+        </div>
+      </article>
+
+      <!-- Organic farming media card -->
+      <article class="card">
+        <div class="media" role="group" aria-label="Organic farming">
+          <img src="organic.jpeg" alt="Lush organic farming fields with crop rows" />
+          <div class="media-content">
+            <h2>🌾 Organic Farming — Working With Nature</h2>
+            <p>
+              Organic farming avoids synthetic pesticides and fertilizers, relying on compost, crop rotation,
+              and biological pest control to regenerate soil and nurture ecosystems.
+            </p>
+
+            <div class="benefits" aria-hidden="false">
+              <div class="benefit"><span>Environmental:</span>&nbsp;&nbsp;Restores soil health, prevents erosion, and protects waterways.</div>
+              <div class="benefit"><span>Health:</span>&nbsp;&nbsp;Reduces chemical residues, producing safer and more nutritious food.</div>
+              <div class="benefit"><span>Community:</span>&nbsp;&nbsp;Supports local farms and biodiversity-friendly practices.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Animal husbandry media card (image left on wide screens) -->
+      <article class="card">
+        <div class="media" role="group" aria-label="Animal husbandry">
+          <img src="animals.jpeg" alt="Healthy livestock grazing on pasture" />
+          <div class="media-content">
+            <h2>🐄 Animal Husbandry — Care, Welfare, Balance</h2>
+            <p>
+              Sustainable animal husbandry emphasizes animal welfare, responsible breeding, and waste recycling (manure becomes valuable compost),
+              cutting emissions and improving farm productivity.
+            </p>
+
+            <div class="benefits">
+              <div class="benefit"><span>Environmental:</span>&nbsp;&nbsp;Better waste management, lower pollution, supports circular farming.</div>
+              <div class="benefit"><span>Health:</span>&nbsp;&nbsp;Safer dairy and meat from healthy, well-cared-for animals.</div>
+              <div class="benefit"><span>Economy:</span>&nbsp;&nbsp;Stable livelihoods and ethical food systems for rural communities.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Summary / final card -->
+      <article class="card" aria-labelledby="final-heading">
+        <h2 id="final-heading">🌍 Towards a Greener, Healthier Tomorrow</h2>
+        <p>
+          Choosing organic methods and humane animal care reduces environmental damage and yields food that is better for people and the planet.
+          Small decisions — at farms, shops, and kitchens — scale into big, positive change.
+        </p>
+
+        <div class="callout" role="note">
+          <strong>Takeaway:</strong>
+          <span>Adopt, support, and spread sustainable agriculture for a lasting impact.</span>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-foot" role="contentinfo">
+      <p>Created with care • Ethical Practices • Organic Farming —</p>
+    </footer>
+  </div>
+</body>
+</html>
